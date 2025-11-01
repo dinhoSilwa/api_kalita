@@ -6,3 +6,28 @@ datasource db {
   provider = "mongodb"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id             String   @id @default(uuid()) @map("_id") @db.ObjectId
+  name           String
+  email          String   @unique
+  password_hash  String
+  createdAt      DateTime @default(now())
+
+  @@map("user")
+}
+
+model ServiceForm {
+  id                  String   @id @default(uuid()) @map("_id") @db.ObjectId
+  full_name           String
+  email               String
+  phone               String
+  photo_session_type  String
+  message             String
+  status              String   @default("pending")
+  assigned_photographer String?
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+
+  @@map("serviceform")
+}
