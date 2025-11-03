@@ -1,13 +1,13 @@
 import { Router } from "express";
-import { createServiceFormController } from "../controllers/FormController";
+import { createServiceFormController } from "../../controllers/FormController";
 
 const router = Router();
 
 /**
  * @openapi
- * /service-form:
+ * /api/v1/service-form:
  *   post:
- *     summary: Cria um novo formulário de solicitação de serviço fotográfico.
+ *     summary: Cria um novo formulário de solicitação de serviço fotográfico
  *     tags:
  *       - Service Form
  *     requestBody:
@@ -38,6 +38,19 @@ const router = Router();
  *               message:
  *                 type: string
  *                 example: Gostaria de agendar uma sessão para minha família no próximo sábado.
+ *               status:
+ *                 type: string
+ *                 enum:
+ *                   - pending
+ *                   - confirmed
+ *                   - in_progress
+ *                   - completed
+ *                   - cancelled
+ *                 example: pending
+ *               assigned_photographer:
+ *                 type: string
+ *                 nullable: true
+ *                 example: null
  *     responses:
  *       201:
  *         description: Formulário criado com sucesso.
@@ -87,6 +100,12 @@ const router = Router();
  *           example: Gostaria de agendar uma sessão...
  *         status:
  *           type: string
+ *           enum:
+ *             - pending
+ *             - confirmed
+ *             - in_progress
+ *             - completed
+ *             - cancelled
  *           example: pending
  *         assigned_photographer:
  *           type: string
