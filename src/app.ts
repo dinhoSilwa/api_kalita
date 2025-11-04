@@ -5,7 +5,7 @@ import { ErrorHandlerMiddleware } from "./middlewares/Errors";
 import serviceFormRoutes from "./routes/v1/serviceForm.routes";
 import { setupSwagger } from "./swagger";
 
-const app = express();
+export const app = express();
 
 app.use(express.json());
 app.use(cors(corsOptions));
@@ -29,4 +29,3 @@ app.get("/", (req, res) => {
 
 app.use(ErrorHandlerMiddleware);
 
-export default app;

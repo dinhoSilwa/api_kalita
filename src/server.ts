@@ -1,4 +1,4 @@
-import app from './app';
+import { app } from './app';
 import { connectDatabase, databaseHealthCheck, disconnectDatabase } from './db/prisma';
 
 const PORT = process.env.PORT || 3000;
