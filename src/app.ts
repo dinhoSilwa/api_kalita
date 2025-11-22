@@ -1,9 +1,11 @@
-import express from "express";
-import cors from "cors";
-import { corsOptions } from "./middlewares/cors";
-import { ErrorHandlerMiddleware } from "./middlewares/Errors";
-import serviceFormRoutes from "./routes/v1/serviceForm.routes";
-import { setupSwagger } from "./swagger";
+import express from 'express';
+import cors from 'cors';
+import { corsOptions } from './middlewares/cors';
+import { ErrorHandlerMiddleware } from './middlewares/Errors';
+import serviceFormRoutes from './routes/v1/serviceForm.routes';
+import authRoutes from './routes/v1/auth.routes';
+import adminRoutes from './routes/v1/admin.routes';
+import { setupSwagger } from './swagger';
 
 export const app = express();
 
@@ -13,19 +15,20 @@ app.use(cors(corsOptions));
 // Swagger
 setupSwagger(app);
 
-app.get("/health", (req, res) => {
+app.get('/health', (req, res) => {
   res.status(200).json({
     success: true,
-    message: "API Kalita Fotografia está online",
+    message: 'API Kalita Fotografia está online',
     timestamp: new Date().toISOString(),
   });
 });
 
-app.use("/api/v1/service-form", serviceFormRoutes);
+app.use('/api/v1/service-form', serviceFormRoutes);
+app.use('/api/v1/auth', authRoutes);
+app.use('/api/v1/admin', adminRoutes);
 
-app.get("/", (req, res) => {
-  res.send("API Kalita Fotografia está online");
+app.get('/', (req, res) => {
+  res.send('API Kalita Fotografia está online');
 });
 
 app.use(ErrorHandlerMiddleware);
-
