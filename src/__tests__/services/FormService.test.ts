@@ -1,4 +1,4 @@
-import { createServiceForm } from '../../services/FormService';
+import { createServiceForm } from '../../services/service-form/FormService';
 
 // Mock do Prisma Client
 jest.mock('../../db/prisma', () => ({

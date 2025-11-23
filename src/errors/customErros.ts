@@ -80,3 +80,9 @@ export class Conflict extends CustomApiError {
     super(message, HttpStatusCode.CONFLICT);
   }
 }
+
+export class UploadError extends CustomApiError {
+  constructor(message : string = "Falha ao Fazer Upload"){
+    super(message, HttpStatusCode.UNPROCESSABLE_ENTITY)
+  }
+}

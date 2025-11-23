@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createServiceFormController } from "../../controllers/FormController";
+import { createServiceFormController, getFormsByEmailController, getServiceFormController } from "../../../controllers/FormController";
 
 const router = Router();
 
@@ -122,5 +122,7 @@ const router = Router();
  */
 
 router.post("/", createServiceFormController);
+router.get('/:id', getServiceFormController);
+router.get('/email/:email', getFormsByEmailController);
 
 export default router;

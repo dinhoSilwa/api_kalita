@@ -1,5 +1,5 @@
 import { ErrorRequestHandler, Request, Response, NextFunction } from "express";
-import { EmailError, RateExpires, ZodErrors, type CustomApiError } from "../errors/customErros";
+import { EmailError, RateExpires, ZodErrors, type CustomApiError } from "../../errors/customErros";
 
 export const ErrorHandlerMiddleware: ErrorRequestHandler = (
   error: Error & CustomApiError,
