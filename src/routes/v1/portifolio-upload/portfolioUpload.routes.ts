@@ -1,6 +1,7 @@
 import { Router } from "express";
 import {
   deleteImage,
+  getAllPhotosController,
   uploadMultipleImageController,
   uploadSingleImageController,
 } from "../../../controllers/portifolio-upload/portifolioUploadController";
@@ -173,5 +174,36 @@ router.post(
  *         description: Erro interno do servidor
  */
 router.delete("/delete-image", deleteImage);
+
+/**
+ * @openapi
+ * /api/v1/portfolio/:
+ *   get:
+ *     summary: Obtém todas as fotos do portfólio
+ *     description: Retorna uma lista com todas as imagens do portfólio armazenadas no serviço de cloud storage
+ *     tags:
+ *       - Portfolio
+ *     responses:
+ *       200:
+ *         description: Lista de fotos obtida com sucesso
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 message:
+ *                   type: string
+ *                   example: "Fotos obtidas"
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     $ref: '#/components/schemas/PortfolioImage'
+ *       500:
+ *         description: Erro interno do servidor
+ */
+router.get("/", getAllPhotosController);
 
 export default router;

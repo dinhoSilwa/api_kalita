@@ -4,6 +4,7 @@ import { PortfolioUploadService } from "../../services/portifolio-upload/portifo
 import { UploadError } from "../../errors/customErros";
 import type { UploadedFile } from "../../interfaces/portifolio-upload/@types";
 import { HttpStatusCode } from "../../httpStatus/status";
+import { success } from "zod";
 
 const service = container.resolve<PortfolioUploadService>(
   "PortfolioUploadService"
@@ -19,7 +20,7 @@ export async function uploadSingleImageController(
   }
   const { category } = req.body;
   const file = req.files as unknown as UploadedFile;
-  
+
   try {
     const result = await service.uploadImage(file, category);
 
@@ -33,17 +34,17 @@ export async function uploadSingleImageController(
   }
 }
 
+
 export async function uploadMultipleImageController(
   req: Request,
   res: Response,
   next: NextFunction
 ) {
-
   const files = req.files as unknown as UploadedFile[];
   const { category } = req.body;
 
   try {
-       if (!req.files || !Array.isArray(req.files) || req.files.length === 0) {
+    if (!req.files || !Array.isArray(req.files) || req.files.length === 0) {
       throw new UploadError("Nenhum arquivo enviado");
     }
 
@@ -83,3 +84,27 @@ export async function deleteImage(
     next(error);
   }
 }
+
+
+export async function getAllPhotosController(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const response = await service.getAllPhotos();
+    console.log(response)
+    if (!response || response.next_cursor === null) {
+      throw new Error("Falha ao Buscar Photos");
+    }
+    res.status(HttpStatusCode.OK).json({
+      success: true,
+      message: "Fotos obtidas",
+      data: response.resources,
+    });
+    return response.resources;
+  } catch (err) {
+    next(err);
+  }
+}
+

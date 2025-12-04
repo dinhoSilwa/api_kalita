@@ -8,6 +8,7 @@ import type {
   UploadedFile,
 } from "../interfaces/portifolio-upload/@types";
 import type { IStoragePortifolioRepository } from "../interfaces/portifolio-upload/IStorageRepository";
+import type { PhotoInDb, Resourcecloudinary } from "../schemas/response/ResponseBase";
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -47,6 +48,21 @@ export class CloudinaryRepository implements IStoragePortifolioRepository {
       throw new Error(`Erro ao deletar imagem: ${result.result}`);
     }
   }
+
+  
+async getAllPhotos(): Promise<Partial<Resourcecloudinary>> {
+  const result = await cloudinary.api.resources({
+    prefix: 'kalita_fotografia_uploads',
+    max_results: 100,
+    type: 'upload'
+
+  }) as Partial<Resourcecloudinary>;
+
+  return result
+
+  
+}
+
 
   private mapCloudinaryResult(result: UploadApiResponse): StorageResult {
     return {

@@ -27,6 +27,10 @@ export class PortfolioUploadService {
       folder: folderName,
     });
   }
+  
+  async getAllPhotos(){
+    return await this.storageRepository.getAllPhotos()
+  }
 
   async deleteImage(public_id: string): Promise<void> {
     return await this.storageRepository.delete(public_id);
